@@ -1,0 +1,38 @@
+{
+	"name": "Materia multiplayer demo",
+	"qset": {
+		"version": 1,
+		"data": {
+			"items": [
+				{
+					"materiaType":"question",
+					"id": null,
+					"type": "mc",
+					"questions": [
+						{
+							"text": "What is the airspeed velocity of an unladen swallow?"
+						}
+					],
+					"answers": [
+						{
+							"id":null,
+							"text": "An African swallow?",
+							"value": 0
+						},
+						{
+							"id": null,
+							"text": "A European swallow?",
+							"value": 0
+						},
+						{
+							"id": null,
+							"text": "What? I don't know that!",
+							"value": 100
+						}
+						
+					]
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,99 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: #fff;
+}
+
+.player-app {
+	position: relative;
+	width: calc(100% - 15px);
+	height: 80%;
+
+	padding-top: 25px;
+	padding-left: 15px;
+	background: #fff;
+
+	section.session {
+		span {
+			display: block;
+			margin-top: 10px;
+			font-size: 0.8em;
+			color: #5e5e5e;
+		}
+
+		button.connect {
+			margin-top: 15px;
+		}
+	}
+
+	.connection-status {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		padding: 5px;
+		border: solid 1px #ababab;
+		border-radius: 3px;
+		
+		&.pending {
+			background: #ffbb00;
+		}
+
+		&.connected {
+			background: #4ba700;
+		}
+
+		&.error {
+			background: #800000;
+		}
+	}
+
+	.player-status {
+		position: absolute;
+		bottom: 10px;
+		right: 10px;
+	}
+
+	section.game-window {
+		position: relative;
+		margin: 10px 20px 20px 0;
+		padding: 10px;
+		background: #e0e0e0;
+		border-radius: 5px;
+		border: solid 1px #5e5e5e;
+
+		span.client-count {
+			position: absolute;
+			display: none;
+			top: 15px;
+			right: 15px;
+			padding: 5px;
+			background: #fff;
+
+			&.show {
+				display: block;
+			}
+		}
+
+		div.game-content, div.ready-check, div.question-review {
+			display: none;
+
+			&.show {
+				display: block;
+			}
+		}
+
+		div.question-review {
+			position: absolute;
+			z-index: 10;
+			left: 50%;
+			width: 60%;
+			height: 20%;
+			margin-left: -30%;
+			padding: 15px;
+			background: #fff;
+		}
+	}
+}

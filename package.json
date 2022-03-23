@@ -1,0 +1,23 @@
+{
+    "name": "materia-multiplayer-widget",
+    "materia": {
+        "cleanName": "materia-multiplayer-widget"
+    },
+    "version": "0.0.1",
+    "devDependencies": {
+        "@babel/core": "^7.7.5",
+		"@babel/plugin-proposal-class-properties": "7.8.3",
+		"@babel/plugin-proposal-optional-chaining": "7.8.3",
+		"@babel/preset-react": "^7.0.0",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
+        "sass": "^1.24.4",
+        "ws": "8.5.0"
+    },
+    "dependencies": {
+        "materia-widget-development-kit": "2.5.2"
+    },
+    "scripts": {
+        "start": "webpack-dev-server"
+    }
+}
