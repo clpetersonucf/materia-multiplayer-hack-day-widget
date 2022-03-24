@@ -20,6 +20,16 @@ const GameWindow = (props) => {
 		props.sendSocketMessage({  action: 'ready-check-report', payload: { status: report, context: 'pre-start' }})
 	}
 
+	const reset = () => {
+		setState(state => ({...state, questionState: 'pre-response'}))
+		props.advanceQuestion()
+	}
+
+	const getCurrentQuestion = () => {
+		if (props.question) return props.question.questions[0].text
+		else return 'There are no more questions!'
+	}
+
 	const answers = props.question?.answers.map((answer) => {
 		return <div className='answer' key={answer.id}>
 			<input type='radio' name={props.question.id} value={answer.id} onClick={() => answerSelect(answer.id)} disabled={props.status == 'waiting-for-next-question' ? true : false}/><label>{answer.text}</label>
@@ -30,8 +40,11 @@ const GameWindow = (props) => {
 		<section className={`game-window ${props.status != 'pending'  ? 'show' : ''}`}>
 			<QuestionReview
 				qset={props.qset}
+				currentIndex={props.questionIndex}
 				timeline={props.timeline}
-				show={props.status == 'question-review'}></QuestionReview>
+				playerId={props.playerId}
+				show={props.status == 'question-review'}
+				advanceQuestion={reset}></QuestionReview>
 			<div className={`ready-check ${props.status == 'new-game' || props.status == 'existing-game' || props.status == 'waiting' ? 'show' : ''}`}>
 				The game is currently waiting for other players. If you're ready, feel free to hit Start. If you want to wait for more players, hit Wait.
 				<span>
@@ -41,7 +54,7 @@ const GameWindow = (props) => {
 			</div>
 			<span className={`client-count ${props.clients > 0 ? 'show': ''}`}>Players: {props.clients}</span>
 			<div className={`game-content ${props.status == 'in-progress' || props.status == 'waiting-for-next-question' ? 'show': ''}`}>
-				<span className='question'>{props.question?.questions[0].text}</span>
+				<span className='question'>{getCurrentQuestion()}</span>
 				<div className='answers'>
 					{answers}
 				</div>

@@ -127,6 +127,7 @@ body {
 	section.game-window {
 		display: none;
 		position: relative;
+		min-height: 200px;
 		margin: 10px 20px 20px 0;
 		padding: 40px 20px 20px 20px;
 		background: #ececec;
@@ -227,13 +228,32 @@ body {
 
 		div.question-review {
 			position: absolute;
-			z-index: 10;
+			z-index: 99;
 			left: 50%;
-			width: 60%;
-			height: 20%;
-			margin-left: -30%;
+			width: 70%;
+			margin-left: calc(-35% - 10px);
 			padding: 15px;
 			background: #fff;
+
+			div.timeline-response {
+				margin-bottom: 5px;
+				padding: 10px 15px;
+				color: #ffffff;
+				background: #5e5e5e;
+
+				span.bold {
+					font-weight: bold;
+				}
+
+				&.current-user {
+					background:#0094d8;
+				}
+ 			}
+
+			button.close {
+				margin: 15px 0 0 15px;
+				padding: 10px 15px;
+			}
 		}
 	}
 }

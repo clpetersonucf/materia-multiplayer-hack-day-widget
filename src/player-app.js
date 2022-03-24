@@ -27,6 +27,8 @@ const PlayerApp = (props) => {
 
 		if (state.initialized == false) {
 
+			console.log(props.qset)
+
 			if (!state.socket) {
 				var socket = new WebSocket('ws://localhost:8228')
 
@@ -66,6 +68,7 @@ const PlayerApp = (props) => {
 											break;
 										case 'waiting-for-remaining-players':
 											console.log('game status is waiting for next question')
+											setState(state => ({...state, playersReady: receipt.payload.numReady}))
 											break;
 										case 'ready-for-next-question':
 											console.log('game status is ready for next question')
@@ -153,6 +156,10 @@ const PlayerApp = (props) => {
 		}))
 	}
 
+	const handleAdvanceQuestion = () => {
+		setState(state => ({...state, gameStatus: 'in-progress', playersReady: 0, questionIndex: state.questionIndex + 1}))
+	}
+
 	return (
 		<div className='player-app'>
 			<h2>Materia Multiplayer Widget</h2>
@@ -172,7 +179,9 @@ const PlayerApp = (props) => {
 				onQuestionUpdate={handleQuestionUpdate}
 				currentQuestionQueue={state.questionPlayerQueue}
 				timeline={state.timeline}
-				qset={props.qset}></GameWindow>
+				qset={props.qset}
+				playerId={state.playerId}
+				advanceQuestion={handleAdvanceQuestion}></GameWindow>
 			<PlayerStatus clients={state.clientStatus} playersReady={state.playersReady} gameStatus={state.gameStatus}></PlayerStatus>
 			<div className={`game-status ${state.gameStatus}`}>
 				The game status is {state.gameStatus}.
