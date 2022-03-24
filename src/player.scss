@@ -10,22 +10,72 @@ body {
 .player-app {
 	position: relative;
 	width: calc(100% - 15px);
-	height: 80%;
+	height: 655px;
 
 	padding-top: 25px;
 	padding-left: 15px;
 	background: #fff;
 
+	font-family: Lato,arial,serif;
+
+	h2 {
+		margin: 5px 0 15px 5px;
+	}
+
+	button {
+		background: #0094d8;
+		color: #ffffff;
+
+		border: none;
+		border-radius: 5px;
+
+		cursor: pointer;
+
+		&:hover {
+			background: #44c4ff;
+		}
+	}
+
 	section.session {
+		display: none;
+		margin: 20px 20px 10px 0;
+		padding: 10px;
+
+		background: #ececec;
+
+		input.connection {
+			display: inline-block;
+			// height: 2em;
+			width: 40%;
+
+			padding: 10px 10px 5px 10px;
+
+			border: solid #5e5e5e 1px;
+			border-radius: 5px;
+
+			font-size: 3em;
+			color: #0094d8;
+		}
+
+		&.show {
+			display: block;
+		}
+
 		span {
 			display: block;
-			margin-top: 10px;
+			margin: 10px 0;
 			font-size: 0.8em;
 			color: #5e5e5e;
 		}
 
 		button.connect {
-			margin-top: 15px;
+			position: relative;
+			bottom: 12px;
+			padding: 10 20px;
+			margin: 15px 0 15px 15px;
+			font-size: 1.5em;
+
+			cursor: pointer;
 		}
 	}
 
@@ -50,27 +100,57 @@ body {
 		}
 	}
 
-	.player-status {
+	.player-id {
 		position: absolute;
 		bottom: 10px;
 		right: 10px;
+
+		font-size: 0.8em;
+	}
+
+	.game-status {
+		position: absolute;
+		bottom: 10px;
+		left: 10px;
+
+		font-size: 0.8em;
+	}
+
+	.player-status {
+		display: none;
+
+		&.show {
+			display: block;
+		}
 	}
 
 	section.game-window {
+		display: none;
 		position: relative;
 		margin: 10px 20px 20px 0;
-		padding: 10px;
-		background: #e0e0e0;
-		border-radius: 5px;
-		border: solid 1px #5e5e5e;
+		padding: 40px 20px 20px 20px;
+		background: #ececec;
+		border-radius: 3px;
+		border: solid 1px #e0e0e0;
+
+		&.show {
+			display: block;
+		}
 
 		span.client-count {
 			position: absolute;
 			display: none;
-			top: 15px;
-			right: 15px;
-			padding: 5px;
+			top: 0px;
+			right: 0px;
+			padding: 5px 10px;
+
+			font-size: 1em;
 			background: #fff;
+
+			border-radius: 3px;
+
+			background: #464646;
+			color: #ffffff;
 
 			&.show {
 				display: block;
@@ -82,6 +162,66 @@ body {
 
 			&.show {
 				display: block;
+			}
+		}
+
+		div.ready-check {
+
+			span {
+				display: flex;
+				flex-direction: row;
+
+				button {
+					display: inline-block;
+					margin: 15px 0 15px 15px;
+					padding: 10px 15px;
+	
+					font-size: 1.2em;
+					background: #0094d8;
+					color: #ffffff;
+
+					border: none;
+					border-radius: 5px;
+
+					cursor: pointer;
+
+					&.selected {
+						background: #44c4ff;
+					}
+
+					&:hover {
+						background: #44c4ff;
+					}
+				}
+			}
+		}
+
+		div.game-content {
+			.question {
+				display: block;
+				margin: 10px 5px;
+				font-size: 1.2em;
+			}
+
+			.answer {
+				display: block;
+				margin: 5px 0 5px 15px;
+
+				input {
+					margin-right: 10px;
+				}
+			}
+
+			button.submitChoice {
+				margin: 20px 0 0 15px;
+				padding: 10px 15px;
+				font-size: 1.1em;
+			}
+
+			.wait-for-it {
+				display: block;
+				margin: 20px 0 0 15px;
+				font-size: 0.9em;
 			}
 		}
 

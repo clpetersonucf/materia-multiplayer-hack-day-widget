@@ -3,19 +3,20 @@ import QuestionReview from './question-review'
 
 const GameWindow = (props) => {
 
-	const [state, setState] = useState({selected: null, questionState: 'pre-response'})
+	const [state, setState] = useState({selected: null, questionState: 'pre-response', readyCheckStatus: ''})
 
 	const answerSelect = (id) => {
 		console.log('you selected ' + id)
-		setState({...state, selected: id})
+		setState(state => ({...state, selected: id}))
 	}
 
 	const submitSelection = (event) => {
 		props.onQuestionUpdate(state.selected)
-		setState({...state, questionState: 'post-response'})
+		setState(state => ({...state, questionState: 'post-response'}))
 	}
 
 	const readyCheckReport = (report) => {
+		setState(state => ({...state, readyCheckStatus: report}))
 		props.sendSocketMessage({  action: 'ready-check-report', payload: { status: report, context: 'pre-start' }})
 	}
 
@@ -26,19 +27,17 @@ const GameWindow = (props) => {
 	})
 
 	return (
-		<section className='game-window'>
+		<section className={`game-window ${props.status != 'pending'  ? 'show' : ''}`}>
 			<QuestionReview
 				qset={props.qset}
 				timeline={props.timeline}
 				show={props.status == 'question-review'}></QuestionReview>
 			<div className={`ready-check ${props.status == 'new-game' || props.status == 'existing-game' || props.status == 'waiting' ? 'show' : ''}`}>
 				The game is currently waiting for other players. If you're ready, feel free to hit Start. If you want to wait for more players, hit Wait.
-
-				<button className='ready-check-response' value='start' onClick={() => readyCheckReport('ready')}>Start</button>
-				<button className='ready-check-response' value='wait'  onClick={() => readyCheckReport('wait')}>Wait for Other Players </button>
-			</div>
-			<div className={`game-status ${props.status}`}>
-				The game status is {props.status}.
+				<span>
+					<button className={`ready-check-response ${state.readyCheckStatus == 'ready' ? 'selected' : ''}`} value='start' onClick={() => readyCheckReport('ready')}>Start</button>
+					<button className={`ready-check-response ${state.readyCheckStatus == 'wait' ? 'selected' : ''}`} value='wait'  onClick={() => readyCheckReport('wait')}>Wait for Other Players </button>
+				</span>
 			</div>
 			<span className={`client-count ${props.clients > 0 ? 'show': ''}`}>Players: {props.clients}</span>
 			<div className={`game-content ${props.status == 'in-progress' || props.status == 'waiting-for-next-question' ? 'show': ''}`}>

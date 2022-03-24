@@ -1,6 +1,7 @@
 import React, {useState, useMemo, useEffect} from 'react'
 
 import GameWindow from './game-window'
+import PlayerStatus from './player-status'
 // import WebSocket from 'ws'
 
 const PlayerApp = (props) => {
@@ -18,7 +19,8 @@ const PlayerApp = (props) => {
 		clientStatus: 0,
 		questionIndex: -1,
 		currentQuestionQueue: 0,
-		timeline: []
+		timeline: [],
+		playersReady: 0
 	})
 
 	useEffect(() => {
@@ -56,11 +58,11 @@ const PlayerApp = (props) => {
 										case 'waiting':
 											console.log('server is waiting for another player')
 											console.log('num ready: ' + receipt.payload.numReady + ' out of ' + state.clientStatus)
-											setState(state => ({...state, gameStatus: 'waiting'}))
+											setState(state => ({...state, gameStatus: 'waiting', playersReady: receipt.payload.numReady}))
 											break;
 										case 'ready':
 											console.log('all players report ready')
-											setState(state => ({...state, questionIndex: state.questionIndex + 1, gameStatus: 'in-progress'}))
+											setState(state => ({...state, questionIndex: state.questionIndex + 1, gameStatus: 'in-progress', playersReady: 0}))
 											break;
 										case 'waiting-for-remaining-players':
 											console.log('game status is waiting for next question')
@@ -155,15 +157,12 @@ const PlayerApp = (props) => {
 		<div className='player-app'>
 			<h2>Materia Multiplayer Widget</h2>
 
-			<section className='session'>
-				Enter a session ID: <input className='connection' type='text' value={state.sessionId} onChange={onSessionIdChange} />
-				<span>
-					By default, a random session ID is generated for you.
-				</span>
+			<section className={`session ${state.gameStatus == 'pending' ? 'show' : ''}`}>
+				<span>Enter a session ID. By default, a random session ID is generated for you.</span><input className='connection' type='text' value={state.sessionId} onChange={onSessionIdChange} />
 				<button className='connect' onClick={handleConnect}>Connect</button>
 			</section>
 			<div className={`connection-status ${state.connectionStatus}`}>{state.connectionStatus}</div>
-			<div className='player-status'>Your player ID: {state.playerId}</div>
+			<div className='player-id'>Your Player ID: {state.playerId}</div>
 			<GameWindow
 				sendSocketMessage={handleSendSocketMessage}
 				status={state.gameStatus}
@@ -174,6 +173,10 @@ const PlayerApp = (props) => {
 				currentQuestionQueue={state.questionPlayerQueue}
 				timeline={state.timeline}
 				qset={props.qset}></GameWindow>
+			<PlayerStatus clients={state.clientStatus} playersReady={state.playersReady} gameStatus={state.gameStatus}></PlayerStatus>
+			<div className={`game-status ${state.gameStatus}`}>
+				The game status is {state.gameStatus}.
+			</div>
 		</div>
 	)
 }
