@@ -24,7 +24,7 @@ The widget does not include:
 - Support for players leaving or disconnecting
 - Question feedback is rudimentary at best and players are not uniquely identified
 
-Note that the widget must be paired with the Materia Multiplayer Server in order to work.
+Note that the widget must be paired with the [Materia Multiplayer Server](https://github.com/clpetersonucf/materia-multiplayer-server) in order to work.
 
 Messages _from_ the websocket server are formatted in the following way:
 ```
@@ -51,4 +51,17 @@ Messages _to_ the websocket server are formatted in the following way:
 The `session`, `playerId`, and `action` values are required. `action` describes the action the widget performed and is providing an update for.
 
 For more information about developing Materia widgets, be sure to consult the [Widget Developer Guide](https://ucfopen.github.io/Materia-Docs/develop/widget-developer-guide.html)
+
+### Installation
+
+Before running, ensure the Multiplayer Server is cloned locally and run.
+
+The widget is currently only capable of running in the MWDK environment. It does not yet possess the minimum requirements for installation to Materia.
+
+```
+$ yarn install
+$ yarn start
+```
+
+By default, widgets are hosted on `localhost:8118` when run with the MWDK.
 
